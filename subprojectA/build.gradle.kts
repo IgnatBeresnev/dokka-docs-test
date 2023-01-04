@@ -1,3 +1,6 @@
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
+import org.jetbrains.dokka.DokkaConfiguration.Visibility
+
 plugins {
     kotlin("jvm")
     id("java")
@@ -8,6 +11,18 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+}
+
+// configuration specific to this subproject A
+tasks.withType<DokkaTaskPartial>().configureEach {
+    dokkaSourceSets.configureEach {
+        documentedVisibilities.set(
+            setOf(
+                Visibility.PUBLIC,
+                Visibility.INTERNAL
+            )
+        )
+    }
 }
 
 dependencies {
